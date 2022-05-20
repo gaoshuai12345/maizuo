@@ -1,6 +1,17 @@
 <template>
   <div v-if="filmInfo">
     <!-- <img :src="filmInfo.poster"> -->
+    <detail-header v-scroll="50">
+      {{filmInfo.name}}
+    </detail-header>
+    <div
+      :style="{ backgroundImage: 'url(' + filmInfo.poster + ')' }"
+      class="poster"
+    ></div>
+    <div
+      :style="{ backgroundImage: 'url(' + filmInfo.poster + ')' }"
+      class="poster"
+    ></div>
     <div
       :style="{ backgroundImage: 'url(' + filmInfo.poster + ')' }"
       class="poster"
@@ -44,11 +55,30 @@
 import http from "@/util/http";
 import moment from "moment";
 import Vue from "vue";
-import ActorSwiper from '@/mycomponents/detail/ActorSwiper'
+import ActorSwiper from '@/mycomponents/detail/ActorSwiper';
+import DetailHeader from '@/mycomponents/detail/DetailHeader.vue'
 console.log(moment().format());
 Vue.filter("dateFilter", (date) => {
   return moment(date * 1000).format("YYYY-MM-DD");
 });
+Vue.directive('scroll',{
+  inserted(el,binding){
+    console.log(binding.value)
+    el.style.display = 'none'
+    window.onscroll = ()=>{
+  if((document.documentElement.scrollTop||document.body.scrollTop)>binding.value
+  ){
+      el.style.display='block'
+  }else{
+    el.style.display = 'none'
+  }
+    }
+  },
+  // 销毁执行的
+  unbind(){
+    window.onscroll=null;
+  }
+})
 export default {
   data() {
     return {
@@ -57,7 +87,8 @@ export default {
     };
   },
      components:{
-       ActorSwiper
+       ActorSwiper,
+       DetailHeader
      },
   created() {
     //当前匹配的路由
@@ -73,13 +104,26 @@ export default {
       this.filmInfo = res.data.data.film;
     });
   },
+  // mounted(){
+  //   window.onscroll=()=>{
+  //     console.log('scroll')
+  //     if(document.documentElement.scrollTop > 50){
+  //       console.log("显示")
+  //     }else{
+  //       console.log("隐藏")
+  //     }
+  //   }
+  // },
+  // destroyed(){
+  //   window.onscroll = null
+  // }
 };
 </script>
 
 <style lang="scss" scoped>
 .poster {
   width: 100%;
-  height: 11.666667rem;
+  height: 14rem;
   background-position: center;
   background-size: cover;
 }

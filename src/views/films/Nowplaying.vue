@@ -1,8 +1,14 @@
 <template>
   <div>
-    <ul>
+    <van-list
+  v-model="loading"
+  :finished="finished"
+  finished-text="没有更多了"
+  @load="onLoad"
+  :immediate-check="false"
+>
       <router-link to='/detail'>
-      <li v-for="data in datalist" :key="data.fimlId" @click="handleChangePage(data.filmId)">
+      <van-cell v-for="data in datalist" :key="data.fimlId" @click="handleChangePage(data.filmId)">
         <img :src="data.poster">
         <div class="title">{{ data.name }}</div>
         <div class="content">
@@ -10,9 +16,9 @@
         <div class="actors">主演：{{data.actors|actorsFilter}}</div>
         <div>{{data.nation}}|{{data.runtime}}分钟</div>
         </div>
-      </li>
+      </van-cell>
       </router-link>
-    </ul>
+    </van-list>
   </div>
 </template>
 
@@ -27,7 +33,12 @@ export default {
   data() {
     return {
       datalist: [],
-    };
+      loading:false,
+      finished:false,
+      current:1,
+      total:0
+      
+    }
   },
   mounted() {
     http({
@@ -37,11 +48,35 @@ export default {
            'X-Host': "mall.film-ticket.film.list",
          }
        }).then((res) => {
-      console.log(res.data.data.films)
+      // console.log(res.data.data.films)
       this.datalist = res.data.data.films
+      this.total = res.data.data.total
     })
   },
   methods: {
+    onLoad(){
+      // 总长度匹配，仅用懒加载
+      if(this.datalist.length===this.total&&this.total!==0){
+        this.finished=true
+        retur
+      }
+      console.log("到底了")
+      this.current++
+      console.log(this.current)
+       http({
+         url: `/gateway?cityId=210100&pageNum=${this.current}&pageSize=10&type=1&k=9983816`,
+        headers: {
+        
+           'X-Host': "mall.film-ticket.film.list",
+         }
+       }).then((res) => {
+      // console.log(res.data.data.films)
+      // this.datalist = res.data.data.films
+      this.datalist = [...this.datalist,...res.data.data.films]
+      //loading 主动设置为false
+      this.loading=false
+    })
+    },
     handleChangePage(id) {
       console.log(id);
       //编程式导航
@@ -62,8 +97,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul{
-  li{
+.van-list{
+  .van-cell{
     overflow:hidden;
     padding: 0.833333rem;
   }

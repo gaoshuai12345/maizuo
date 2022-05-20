@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Films from '@/views/Films'
 import Cinemas from '@/views/Cinemas'
-// import Center from '@/views/Center'
+import Center from '@/views/Center'
 import Nowplaying from '@/views/films/Nowplaying'
 import Comingsoon from '@/views/films/Comingsoon'
 import Detail from '@/views/Detail'
@@ -46,11 +46,11 @@ const routes = [
   },
   {
     path: '/center',
-    // component: Center,
-    component: ()=> import('@/views/Center'),//懒加载
-    meta:{
-      isKerwinRequired: true
-    }
+    component: Center
+    // component: ()=> import('@/views/Center'),//懒加载
+    // meta:{
+    //   isKerwinRequired: true
+    // }
   },
   {
     path: '/order',

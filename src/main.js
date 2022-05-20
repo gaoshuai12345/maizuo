@@ -5,6 +5,8 @@ import store from './store'
 import '@/assets/js/rem'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import Vant from 'vant';
+import 'vant/lib/index.css';
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
 // import 'swiper/swiper-bundle.css'
 // import VueAwesomeSwiper from 'vue-awesome-swiper'
@@ -15,6 +17,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 // Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 Vue.use(ElementUI)
+Vue.use(Vant)
 Vue.config.productionTip = false
 new Vue({
   router,

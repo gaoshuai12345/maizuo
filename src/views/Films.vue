@@ -25,5 +25,6 @@
   position:sticky;
   top:0px;
   background: white;
+  z-index: 100;
 }
 </style>

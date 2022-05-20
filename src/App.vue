@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import tabbar from '@/mycomponents/films/Tabbar'
+import tabbar from '@/mycomponents/Tabbar'
 export default {
   data(){
     return{
