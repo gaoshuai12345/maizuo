@@ -43,7 +43,7 @@
       <div>
         <div>
             <div>演职人员</div>
-            <actor-swiper></actor-swiper>
+            <!-- <actor-swiper></actor-swiper> -->
         </div>
   </div>
     </div>
@@ -55,7 +55,7 @@
 import http from "@/util/http";
 import moment from "moment";
 import Vue from "vue";
-import ActorSwiper from '@/mycomponents/detail/ActorSwiper';
+// import ActorSwiper from '@/mycomponents/detail/ActorSwiper';
 import DetailHeader from '@/mycomponents/detail/DetailHeader.vue'
 console.log(moment().format());
 Vue.filter("dateFilter", (date) => {
@@ -87,7 +87,7 @@ export default {
     };
   },
      components:{
-       ActorSwiper,
+      //  ActorSwiper,
        DetailHeader
      },
   created() {
@@ -102,6 +102,8 @@ export default {
     }).then((res) => {
       console.log(res.data.data.film);
       this.filmInfo = res.data.data.film;
+      // 隐藏
+      // Toast.clear()
     });
   },
   // mounted(){

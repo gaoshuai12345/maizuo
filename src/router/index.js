@@ -9,6 +9,7 @@ import Detail from '@/views/Detail'
 // import Oreder from '@/views/films/Order'
 import Login from '@/views/films/Login'
 import Search from '@/views/Search'
+import City from '@/views/films/City'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,10 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path:'/city',
+    component:City
   },
   {
     path: '/center',
