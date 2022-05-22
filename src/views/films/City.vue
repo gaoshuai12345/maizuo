@@ -7,6 +7,7 @@
           :title="item.name"
           v-for="item in data.list"
           :key="item.cityId"
+          @click="handleClick(item)"
         />
       </div>
     </van-index-bar>
@@ -40,6 +41,22 @@ export default {
     });
   },
   methods: {
+    handleClick(item){
+      // console.log(item)
+      // console.log(item.name,item.cityId)
+      // 传统多页面方案
+      // location.href='#/cinemas?cityname='+item.name？
+      // cookie,localStorage
+      // 单页面方案
+      // 1.中间人模式
+      // bus事件总线,$on,$emit
+
+      // vuex-状态管理模式
+      // this.$store.state.cityName=item.name
+      this.$store.commit('changeCityName',item.name)
+      this.$store.commit('changeCityId',item.cityId)
+      this.$router.back()
+    },
     handleChange(data) {
       //   console.log("change")
       Toast(data);

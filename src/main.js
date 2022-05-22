@@ -20,7 +20,7 @@ Vue.use(ElementUI)
 Vue.use(Vant)
 Vue.config.productionTip = false
 new Vue({
-  router,
-  store,
+  router,//this.$router===router
+  store,//this.$store===store
   render: h => h(App)
 }).$mount('#app')

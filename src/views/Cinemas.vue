@@ -2,7 +2,7 @@
   <div>
     <van-nav-bar title="影院" ref="navbar" @click-left="handleLeft">
         <template #left>
-        上海<van-icon name="arrow-down" color="black"/>
+        {{$store.state.cityName}}<van-icon name="arrow-down" color="black"/>
       </template>
       <template #right>
         <van-icon name="search" size="18" color="black" />
@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     http({
-      url: "/gateway?cityId=310100&ticketFlag=1&k=6369556",
+      url: `/gateway?cityId=${this.$store.state.cityId}&ticketFlag=1&k=6369556`,
       headers: {
         "X-Host": "mall.film-ticket.cinema.list",
       },
