@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="影院" ref="navbar" @click-left="handleLeft">
+    <van-nav-bar title="影院" ref="navbar" @click-left="handleLeft" @click-right="handleRight">
         <template #left>
         {{$store.state.cityName}}<van-icon name="arrow-down" color="black"/>
       </template>
@@ -9,7 +9,7 @@
       </template>
     </van-nav-bar>
     <ul>
-      <li v-for="data in cinemaList" :key="data.cinemaId">
+      <li v-for="data in $store.state.cinemaList" :key="data.cinemaId">
         <div class="left">
           <div class="cinema_name">{{ data.name }}</div>
           <div class="cinema_text">{{ data.address }}</div>
@@ -22,29 +22,38 @@
   </div>
 </template>
 <script>
-import http from "@/util/http";
+// import http from "@/util/http";
 export default {
   data() {
     return {
-      cinemaList: [],
+      // cinemaList: [],
     };
   },
   methods:{
     handleLeft(){
       // console.log("left")
       this.$router.push('/city')
+    },
+    handleRight(){
+      this.$router.push('cinemas/search')
     }
   },
   mounted() {
-    http({
-      url: `/gateway?cityId=${this.$store.state.cityId}&ticketFlag=1&k=6369556`,
-      headers: {
-        "X-Host": "mall.film-ticket.cinema.list",
-      },
-    }).then((res) => {
-      console.log(res.data.data.cinemas);
-      this.cinemaList = res.data.data.cinemas;
-    });
+    // 分发
+    if(this.$store.state.cinemaList.length===0){
+      this.$store.dispatch('getCinemaData',this.$store.state.cityId)
+    }else{
+      console.log("缓存")
+    }
+    // http({
+    //   url: `/gateway?cityId=${this.$store.state.cityId}&ticketFlag=1&k=6369556`,
+    //   headers: {
+    //     "X-Host": "mall.film-ticket.cinema.list",
+    //   },
+    // }).then((res) => {
+    //   console.log(res.data.data.cinemas);
+    //   this.cinemaList = res.data.data.cinemas;
+    // });
   },
 };
 </script>
