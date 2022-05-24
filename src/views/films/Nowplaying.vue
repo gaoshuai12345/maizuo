@@ -42,7 +42,7 @@ export default {
   },
   mounted() {
     http({
-         url: '/gateway?cityId=310100&pageNum=1&pageSize=10&type=1&k=9983816',
+         url: `/gateway?cityId=${this.$store.state.cityId}&pageNum=1&pageSize=10&type=1&k=9983816`,
         headers: {
         
            'X-Host': "mall.film-ticket.film.list",
@@ -64,7 +64,7 @@ export default {
       this.current++
       console.log(this.current)
        http({
-         url: `/gateway?cityId=210100&pageNum=${this.current}&pageSize=10&type=1&k=9983816`,
+         url: `/gateway?cityId=${this.$store.state.cityId}&pageNum=${this.current}&pageSize=10&type=1&k=9983816`,
         headers: {
         
            'X-Host': "mall.film-ticket.film.list",

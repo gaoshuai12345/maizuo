@@ -25,6 +25,9 @@ export default new Vuex.Store({
     },
     changeCinemaData(state,data){
       state.cinemaList=data
+    },
+    clearCinema(state){
+      state.cinemaList=[]
     }
     // vuex 管理保存公公状态，（分散在各个组件内的状态，统一管理）
     // 注意

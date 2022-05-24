@@ -2,14 +2,15 @@
   <div>
     <van-nav-bar title="影院" ref="navbar" @click-left="handleLeft" @click-right="handleRight">
         <template #left>
-        {{$store.state.cityName}}<van-icon name="arrow-down" color="black"/>
+        {{cityName}}<van-icon name="arrow-down" color="black"/>
       </template>
       <template #right>
         <van-icon name="search" size="18" color="black" />
       </template>
     </van-nav-bar>
     <ul>
-      <li v-for="data in $store.state.cinemaList" :key="data.cinemaId">
+      <!-- <li v-for="data in $store.state.cinemaList" :key="data.cinemaId"> -->
+      <li v-for="data in cinemaList" :key="data.cinemaId">
         <div class="left">
           <div class="cinema_name">{{ data.name }}</div>
           <div class="cinema_text">{{ data.address }}</div>
@@ -23,6 +24,7 @@
 </template>
 <script>
 // import http from "@/util/http";
+import {mapActions, mapMutations, mapState} from "vuex"
 export default {
   data() {
     return {
@@ -30,18 +32,30 @@ export default {
     };
   },
   methods:{
+    ...mapActions(["getCinemaData"]),
+    ...mapMutations(["clearCinema"]),
     handleLeft(){
       // console.log("left")
       this.$router.push('/city')
+      // 清空cinemaList
+      // this.$store.commit("clearCinema")
+      this.clearCinema()
     },
     handleRight(){
       this.$router.push('cinemas/search')
     }
   },
+  computed:{
+    // vuex 新写法
+    ...mapState(['cinemaList','cityId','cityName'])
+  },
   mounted() {
     // 分发
-    if(this.$store.state.cinemaList.length===0){
-      this.$store.dispatch('getCinemaData',this.$store.state.cityId)
+    // if(this.$store.state.cinemaList.length===0){
+      if(this.cinemaList.length===0){
+      // this.$store.dispatch('getCinemaData',this.$store.state.cityId)
+      // this.$store.dispatch('getCinemaData',this.cityId)
+      this.getCinemaData(this.cityId)
     }else{
       console.log("缓存")
     }
