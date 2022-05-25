@@ -53,6 +53,7 @@
 <script>
 // import axios from 'axios'
 import http from "@/util/http";
+import obj from "@/util/mixinObj"
 import moment from "moment";
 import Vue from "vue";
 // import ActorSwiper from '@/mycomponents/detail/ActorSwiper';
@@ -80,6 +81,7 @@ Vue.directive('scroll',{
   }
 })
 export default {
+  mixins:[obj],
   data() {
     return {
       filmInfo: null,
@@ -90,9 +92,9 @@ export default {
       //  ActorSwiper,
        DetailHeader
      },
-  created() {
+  mounted() {
     //当前匹配的路由
-    console.log("created", this.$route.params.id);
+    // console.log("created", this.$route.params.id);
     // axios 利用id发送请求到详情接口，获取详细数据，布局页面
     http({
       url: `/gateway?filmId=${this.$route.params.id}&k=5704495`,

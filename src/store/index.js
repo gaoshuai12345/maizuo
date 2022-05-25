@@ -1,15 +1,24 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import http from "@/util/http";
-
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState({
+    reducer:(state)=>{
+      return{
+        cityId:state.cityId,
+        cityName:state.cityName
+      }
+    }
+  })],
   // state 公共状态
   state: {
     cityId:'310100',
     cityName:'上海',
-    cinemaList:[]
+    cinemaList:[],
+    isTabbarShow:true
   },
   getters: {
   },
@@ -28,6 +37,12 @@ export default new Vuex.Store({
     },
     clearCinema(state){
       state.cinemaList=[]
+    },
+    show(state){
+      state.isTabbarShow=true
+    },
+    hide(state){
+      state.isTabbarShow=false
     }
     // vuex 管理保存公公状态，（分散在各个组件内的状态，统一管理）
     // 注意
