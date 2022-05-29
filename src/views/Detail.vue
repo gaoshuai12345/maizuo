@@ -8,14 +8,6 @@
       :style="{ backgroundImage: 'url(' + filmInfo.poster + ')' }"
       class="poster"
     ></div>
-    <div
-      :style="{ backgroundImage: 'url(' + filmInfo.poster + ')' }"
-      class="poster"
-    ></div>
-    <div
-      :style="{ backgroundImage: 'url(' + filmInfo.poster + ')' }"
-      class="poster"
-    ></div>
     <div class="content">
       <div>{{ filmInfo.name }}</div>
       <div>
@@ -52,13 +44,14 @@
 
 <script>
 // import axios from 'axios'
-import http from "@/util/http";
+import http from "@/util/http"
 import obj from "@/util/mixinObj"
-import moment from "moment";
-import Vue from "vue";
+import moment from "moment"
+import Vue from "vue"
 // import ActorSwiper from '@/mycomponents/detail/ActorSwiper';
 import DetailHeader from '@/mycomponents/detail/DetailHeader.vue'
-console.log(moment().format());
+// console.log(moment().format());
+moment.locale('zh-cn')//设置成中文
 Vue.filter("dateFilter", (date) => {
   return moment(date * 1000).format("YYYY-MM-DD");
 });

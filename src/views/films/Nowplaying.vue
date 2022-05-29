@@ -10,7 +10,7 @@
       <router-link to='/detail'>
       <van-cell v-for="data in datalist" :key="data.fimlId" @click="handleChangePage(data.filmId)">
         <img :src="data.poster">
-        <div class="title">{{ data.name }}</div>
+        <div class="title">{{ data.name }}<span class="filmtype">{{data.filmType.name}}</span></div>
         <div class="content">
         <div :class="data.grade? '': 'hiddle'">观众评分：<span style="color:red;">{{data.grade}}</span></div>
         <div class="actors">主演：{{data.actors|actorsFilter}}</div>
@@ -111,6 +111,11 @@ export default {
   .title{
     color: black;
     font: size 16px;
+  }
+  .filmtype{
+    margin-left: .375rem;
+    color:white;
+    background: #d2d6dc;
   }
   .content{
     font: size 13px;
